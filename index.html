@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<title>Beterano Lab – Werkstatt Wizard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+body{font-family:-apple-system,system-ui,sans-serif;margin:0;padding:32px 16px;display:flex;justify-content:center;background:#fff;}
+.app{width:100%;max-width:960px;}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;}
+.brand{display:flex;align-items:center;gap:12px;}
+.brand img{height:100px;}
+.brand-text span:first-child{font-size:14px;color:#777;letter-spacing:.14em;text-transform:uppercase;}
+.brand-text span:last-child{font-size:20px;font-weight:700;}
+.pill{padding:6px 12px;border-radius:999px;border:1px solid #e5e5e5;font-size:12px;color:#777;display:flex;align-items:center;gap:8px;}
+.pill-dot{width:6px;height:6px;background:#12b981;border-radius:999px;}
+.shell{background:#fafafa;border-radius:24px;padding:20px;box-shadow:0 10px 30px rgba(0,0,0,.06);border:1px solid #f0f0f0;}
+.wizard-header{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:20px;}
+.wizard-title{font-size:22px;font-weight:600;display:flex;flex-direction:column;gap:4px;}
+.wizard-title span{font-size:13px;color:#777;font-weight:400;}
+.steps{display:flex;gap:8px;flex-wrap:wrap;}
+.step-chip{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;border:1px solid #e5e5e5;font-size:12px;color:#777;background:#fff;cursor:pointer;}
+.step-chip .index{width:18px;height:18px;border-radius:999px;display:flex;justify-content:center;align-items:center;border:1px solid #e5e5e5;font-size:11px;}
+.step-chip.active{border-color:#111;color:#111;background:#ffd84a;}
+.step-chip.active .index{background:#111;color:#fff;border-color:#111;}
+.step-chip.done{opacity:.6;border-style:dashed;}
+.card{background:#fff;border-radius:12px;padding:20px;border:1px solid #f0f0f0;min-height:360px;display:flex;flex-direction:column;gap:18px;}
+h2{margin:0;font-size:20px;}
+p{margin:0;font-size:14px;color:#777;}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;}
+.tile{border-radius:14px;border:1px solid #e5e5e5;padding:12px;background:#fff;display:flex;flex-direction:column;gap:6px;cursor:pointer;}
+.tile:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,0,0,.06);border-color:#111;}
+.icon-placeholder{width:28px;height:28px;border-radius:8px;background:#f3f3f3;border:1px dashed #d6d6d6;}
+.tile-label{font-size:14px;font-weight:500;}
+.tile-hint{font-size:12px;color:#777;}
+.two-col{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;}
+.field-group{display:flex;flex-direction:column;gap:8px;}
+label{font-size:13px;color:#777;}
+input,select,textarea{border-radius:10px;border:1px solid #e5e5e5;padding:8px 10px;font-size:14px;background:#fcfcfc;}
+textarea{min-height:80px;resize:vertical;}
+.calendar-shell{border-radius:14px;border:1px solid #e5e5e5;padding:10px;background:#fcfcfc;display:grid;grid-template-columns:60px repeat(3,1fr);gap:4px;}
+.cal-header{font-weight:600;font-size:11px;}
+.cal-cell{border-radius:8px;background:#fff;border:1px dashed #e0e0e0;height:40px;}
+.cal-block{border-radius:8px;background:#ffd84a;border:1px solid #111;height:32px;margin:3px;}
+.price-summary{border-radius:14px;border:1px solid #e5e5e5;padding:14px;background:#fcfcfc;display:flex;flex-direction:column;gap:8px;}
+.price-row{display:flex;justify-content:space-between;font-size:14px;}
+.price-row.total{font-weight:600;border-top:1px dashed #d6d6d6;padding-top:8px;margin-top:4px;}
+.chips-row{display:flex;gap:6px;flex-wrap:wrap;}
+.chip{font-size:12px;padding:4px 10px;border-radius:999px;border:1px solid #e5e5e5;background:#fff;}
+.chip.accent{border-color:#111;background:#ffd84a;}
+.footer{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;margin-top:18px;gap:12px;}
+button{border-radius:999px;padding:8px 18px;font-size:14px;font-weight:500;cursor:pointer;border:none;}
+.btn-secondary{background:#fff;border:1px solid #e5e5e5;color:#777;}
+.btn-primary{background:#111;color:#fff;}
+.hint{font-size:12px;color:#777;}
+@media(max-width:720px){.two-col{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="app">
+<header>
+  <div class="brand">
+    <img src="images/logo.png" />
+    <div class="brand-text">
+      <span>BETERANO LAB</span>
+      	<span>Garage Ocean Car GmbH</span>
+    </div>
+  </div>
+  <div class="pill"><span class="pill-dot"></span>Prototyp · Werkstatt-Wizard</div>
+</header>
+
+<div class="shell">
+  <div class="wizard-header">
+    <div class="wizard-title">
+      <div>Neuer Werkstattauftrag</div>
+      <span>Start → Service → Fahrzeug → Termin → Preis</span>
+    </div>
+    <div class="steps">
+      <div class="step-chip active" data-step-chip="0"><div class="index">1</div> Start</div>
+      <div class="step-chip" data-step-chip="1"><div class="index">2</div> Service</div>
+      <div class="step-chip" data-step-chip="2"><div class="index">3</div> Fahrzeug</div>
+      <div class="step-chip" data-step-chip="3"><div class="index">4</div> Termin</div>
+      <div class="step-chip" data-step-chip="4"><div class="index">5</div> Preis</div>
+    </div>
+  </div>
+
+  <div class="card" id="step-0">
+    <h2>Start · Vorgang auswählen</h2>
+    <p>Wähle, welchen Prozess du für den Kunden starten möchtest.</p>
+    <div class="grid">
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Neuer Reparaturauftrag</div><div class="tile-hint">Standardannahme mit Planung & Kostenschätzung.</div></div>
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Schneller Termin</div><div class="tile-hint">Nur einen Termin reservieren.</div></div>
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Remote-Kostenvoranschlag</div><div class="tile-hint">Fotos hochladen, Angebot erhalten.</div></div>
+    </div>
+    <div class="footer">
+      <span class="hint">Schritt 1 von 5</span>
+      <button class="btn-primary" data-next>Weiter →</button>
+    </div>
+  </div>
+
+  <div class="card" id="step-1" style="display:none">
+    <h2>Service · Was wird benötigt?</h2>
+    <p>Wähle passende Servicepakete aus.</p>
+    <div class="grid">
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Wartung / Inspektion</div><div class="tile-hint">Öl, Filter, Check.</div></div>
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Diagnose / Elektronik</div><div class="tile-hint">Fehlerauslese, HV, Software.</div></div>
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Mechanische Reparatur</div><div class="tile-hint">Bremsen, Motor, Fahrwerk.</div></div>
+      <div class="tile"><div class="icon-placeholder"></div><div class="tile-label">Karosserie / Lack</div><div class="tile-hint">Dellen, Kratzer.</div></div>
+    </div>
+    <div class="chips-row">
+      <div class="chip accent">Dauer: 2,5 h</div>
+      <div class="chip">Empf.: Mechaniker A (HV)</div>
+      <div class="chip">Priorität: normal</div>
+    </div>
+    <div class="footer">
+      <button class="btn-secondary" data-prev>← Zurück</button>
+      <button class="btn-primary" data-next>Weiter: Fahrzeug →</button>
+    </div>
+  </div>
+
+  <div class="card" id="step-2" style="display:none">
+    <h2>Fahrzeug · Basisdaten</h2>
+    <p>Fahrzeuginfo eingeben oder bestätigen.</p>
+    <div class="two-col">
+      <div class="field-group">
+        <label>Kennzeichen</label><input placeholder="GI‑OCEAN 123" />
+        <label>Marke / Modell</label><input placeholder="Volkswagen ID.4" />
+        <label>Bj. / VIN</label><input placeholder="WVWZZZ…" />
+        <label>Interne Notizen</label><textarea placeholder="Bremsgeräusche, HV‑Check…"></textarea>
+      </div>
+      <div class="field-group">
+        <label>Fotos</label>
+        <div class="tile" style="height:160px;align-items:center;justify-content:center;text-align:center;">
+          <div class="icon-placeholder"></div>
+          <div class="tile-label">Fotos hier ablegen</div>
+        </div>
+        <label>Beterano Lab Historie</label>
+        <div class="tile"><div class="tile-label">3 frühere Besuche</div><div class="tile-hint">Letzter: vor 8 Monaten.</div></div>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="btn-secondary" data-prev>← Zurück</button>
+      <button class="btn-primary" data-next>Weiter: Termin →</button>
+    </div>
+  </div>
+
+  <div class="card" id="step-3" style="display:none">
+    <h2>Termin · Verfügbarkeit</h2>
+    <p>Automatische Vorschläge basierend auf Dauer & Mechanikern.</p>
+    <div class="two-col">
+      <div>
+        <label>Vorgeschlagene Zeiten</label>
+        <div class="chips-row" style="margin-bottom:10px;">
+          <div class="chip accent">Mo 15 Dez · 10:00–12:30</div>
+          <div class="chip">Di 16 Dez · 14:00–16:30</div>
+          <div class="chip">Weitere…</div>
+        </div>
+        <div class="calendar-shell">
+          <div></div><div class="cal-header">A</div><div class="cal-header">B</div><div class="cal-header">C</div>
+          <div class="cal-header" style="color:#777;">08:00</div><div class="cal-cell"></div><div class="cal-cell"><div class="cal-block"></div></div><div class="cal-cell"></div>
+          <div class="cal-header" style="color:#777;">10:00</div><div class="cal-cell"><div class="cal-block"></div></div><div class="cal-cell"></div><div class="cal-cell"></div>
+          <div class="cal-header" style="color:#777;">13:00</div><div class="cal-cell"></div><div class="cal-cell"></div><div class="cal-cell"><div class="cal-block"></div></div>
+        </div>
+      </div>
+      <div class="field-group">
+        <label>Mechaniker</label>
+        <select><option>A · HV (empf.)</option><option>B · Mechanik</option><option>C · Karosserie</option></select>
+        <label>Terminart</label>
+        <select><option>Fahrzeug bleibt da</option><option>Kunde wartet</option><option>Abschleppwagen</option></select>
+        <label>Kontakt Kunde</label>
+        <input placeholder="SMS / WhatsApp / E‑Mail" />
+      </div>
+    </div>
+    <div class="footer">
+      <button class="btn-secondary" data-prev>← Zurück</button>
+      <button class="btn-primary" data-next>Weiter: Preis →</button>
+    </div>
+  </div>
+
+  <div class="card" id="step-4" style="display:none">
+    <h2>Preis · Zusammenfassung</h2>
+    <p>Überprüfe Arbeitszeit, Teile und Gesamtkosten.</p>
+    <div class="two-col">
+      <div class="price-summary">
+        <div class="price-row"><span>Arbeit: Wartung + Diagnose</span><span>2,5 h</span></div>
+        <div class="price-row"><span>Arbeitslohn</span><span>€ 210,00</span></div>
+        <div class="price-row"><span>Teile</span><span>€ 145,00</span></div>
+        <div class="price-row"><span>Zusätzlich</span><span>€ 45,00</span></div>
+        <div class="price-row total"><span>Gesamt (inkl. MwSt.)</span><span>€ 400,00</span></div>
+      </div>
+      <div class="field-group">
+        <label>Kundenhinweise</label>
+        <textarea placeholder="Geschätzter Preis. Bei Abweichungen Kontaktaufnahme."></textarea>
+        <label>Status</label>
+        <select><option>Bereit zur Bestätigung</option><option>Intern</option><option>Vom Kunden bestätigt</option></select>
+      </div>
+    </div>
+    <div class="footer">
+      <button class="btn-secondary" data-prev>← Zurück</button>
+      <button class="btn-primary">Auftrag erstellen ✓</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<script>
+const steps=[...document.querySelectorAll('[id^="step-"]')];
+const chips=[...document.querySelectorAll('[data-step-chip]')];
+let current=0;
+function upd(){steps.forEach((s,i)=>s.style.display=i===current?'flex':'none');
+chips.forEach((c,i)=>{c.classList.remove('active','done');if(i===current)c.classList.add('active');if(i<current)c.classList.add('done');});}
+document.body.onclick=e=>{
+ if(e.target.closest('[data-next]')){if(current<steps.length-1){current++;upd();}}
+ if(e.target.closest('[data-prev]')){if(current>0){current--;upd();}}
+ const c=e.target.closest('[data-step-chip]');
+ if(c){current=Number(c.dataset.stepChip);upd();}
+};
+</script>
+</body>
+</html>
