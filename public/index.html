@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Beterano Lab – Werkstatt Wizard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="assets/styles/main.css" />
+</head>
+
+<body>
+
+  <!-- PANTALLA DE ELECCIÓN DE IDIOMA -->
+  <div class="lang-overlay" id="lang-overlay">
+    <div class="lang-card">
+      <div class="lang-title" data-i18n="lang_title">Sprache wählen</div>
+      <div class="lang-sub" data-i18n="lang_sub">
+        Bitte wähle deine Sprache · Please choose your language.
+      </div>
+      <div class="lang-grid">
+        <button class="lang-btn" data-lang="de">
+          <span>Deutsch</span><span class="lang-code">DE</span>
+        </button>
+        <button class="lang-btn" data-lang="en">
+          <span>English</span><span class="lang-code">EN</span>
+        </button>
+        <button class="lang-btn" data-lang="fr">
+          <span>Français</span><span class="lang-code">FR</span>
+        </button>
+        <button class="lang-btn" data-lang="it">
+          <span>Italiano</span><span class="lang-code">IT</span>
+        </button>
+        <button class="lang-btn" data-lang="es">
+          <span>Español</span><span class="lang-code">ES</span>
+        </button>
+      </div>
+      <div class="lang-sub" style="font-size:12px;" data-i18n="lang_saved">
+        Deine Auswahl wird für zukünftige Besuche gespeichert.
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <header>
+      <div class="brand">
+        <img src="assets/images/logo.png" />
+        <div class="brand-text">
+          <span>Garage Ocean Car</span>
+          <span>BETERANO LAB</span>
+        </div>
+      </div>
+      <div class="pill">
+        <span class="pill-dot"></span>
+        <span data-i18n="header_pill">Prototyp · Werkstatt-Wizard</span>
+      </div>
+    </header>
+
+    <div class="shell">
+      <div class="wizard-header">
+        <div class="wizard-title">
+          <div data-i18n="header_title">Neuer Werkstattauftrag</div>
+          <span data-i18n="header_flow">Start → Service → Fahrzeug → Termin → Preis</span>
+        </div>
+        <div class="steps">
+          <div class="step-chip active" data-step-chip="0">
+            <div class="index">1</div>
+            <span data-i18n="step1_label">Start</span>
+          </div>
+          <div class="step-chip" data-step-chip="1">
+            <div class="index">2</div>
+            <span data-i18n="step2_label">Service</span>
+          </div>
+          <div class="step-chip" data-step-chip="2">
+            <div class="index">3</div>
+            <span data-i18n="step3_label">Fahrzeug</span>
+          </div>
+          <div class="step-chip" data-step-chip="3">
+            <div class="index">4</div>
+            <span data-i18n="step4_label">Termin</span>
+          </div>
+          <div class="step-chip" data-step-chip="4">
+            <div class="index">5</div>
+            <span data-i18n="step5_label">Preis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 0 -->
+      <div class="card" id="step-0">
+        <h2 data-i18n="s0_title">Start · Vorgang auswählen</h2>
+        <p data-i18n="s0_sub">Wähle, welchen Prozess du für den Kunden starten möchtest.</p>
+        <div class="grid">
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label" data-i18n="s0_tile1_title">Neuer Reparaturauftrag</div>
+            <div class="tile-hint" data-i18n="s0_tile1_hint">Standardannahme mit Planung & Kostenschätzung.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label" data-i18n="s0_tile2_title">Schneller Termin</div>
+            <div class="tile-hint" data-i18n="s0_tile2_hint">Nur einen Termin reservieren.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label" data-i18n="s0_tile3_title">Remote-Kostenvoranschlag</div>
+            <div class="tile-hint" data-i18n="s0_tile3_hint">Fotos hochladen, Angebot erhalten.</div>
+          </div>
+        </div>
+        <div class="footer">
+          <span class="hint" data-i18n="s0_hint">Schritt 1 von 5</span>
+          <button class="btn-primary" data-next data-i18n="s0_next">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="card" id="step-1" style="display:none">
+        <h2 data-i18n="s1_title">Service · Was wird benötigt?</h2>
+        <p data-i18n="s1_sub">Wähle passende Servicepakete aus.</p>
+        <div class="grid">
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Wartung / Inspektion</div>
+            <div class="tile-hint">Öl, Filter, Check.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Diagnose / Elektronik</div>
+            <div class="tile-hint">Fehlerauslese, HV, Software.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Mechanische Reparatur</div>
+            <div class="tile-hint">Bremsen, Motor, Fahrwerk.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Karosserie / Lack</div>
+            <div class="tile-hint">Dellen, Kratzer.</div>
+          </div>
+        </div>
+        <div class="chips-row">
+          <div class="chip accent" data-i18n="s1_chip_duration">Dauer: 2,5 h</div>
+          <div class="chip" data-i18n="s1_chip_mechanic">Empf.: Mechaniker A (HV)</div>
+          <div class="chip" data-i18n="s1_chip_priority">Priorität: normal</div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s1_prev">← Zurück</button>
+          <button class="btn-primary" data-next data-i18n="s1_next">Weiter: Fahrzeug →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="card" id="step-2" style="display:none">
+        <h2 data-i18n="s2_title">Fahrzeug · Basisdaten</h2>
+        <p data-i18n="s2_sub">Fahrzeuginfo eingeben oder bestätigen.</p>
+        <div class="two-col">
+          <div class="field-group">
+            <label>Kennzeichen</label><input placeholder="GI-OCEAN 123" />
+            <label>Marke / Modell</label><input placeholder="Volkswagen ID.4" />
+            <label>Bj. / VIN</label><input placeholder="WVWZZZ…" />
+            <label>Interne Notizen</label><textarea placeholder="Bremsgeräusche, HV-Check…"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Fotos</label>
+            <div class="tile" style="height:160px;align-items:center;justify-content:center;text-align:center;">
+              <div class="icon-placeholder"></div>
+              <div class="tile-label">Fotos hier ablegen</div>
+            </div>
+            <label>Beterano Lab Historie</label>
+            <div class="tile">
+              <div class="tile-label">3 frühere Besuche</div>
+              <div class="tile-hint">Letzter: vor 8 Monaten.</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s2_prev">← Zurück</button>
+          <button class="btn-primary" data-next data-i18n="s2_next">Weiter: Termin →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="card" id="step-3" style="display:none">
+        <h2 data-i18n="s3_title">Termin · Verfügbarkeit</h2>
+        <p data-i18n="s3_sub">Automatische Vorschläge basierend auf Dauer & Mechanikern.</p>
+        <div class="two-col">
+          <div>
+            <label data-i18n="s3_label_suggestions">Vorgeschlagene Zeiten</label>
+            <div class="chips-row" style="margin-bottom:10px;">
+              <div class="chip accent">Mo 15 Dez · 10:00–12:30</div>
+              <div class="chip">Di 16 Dez · 14:00–16:30</div>
+              <div class="chip">Weitere…</div>
+            </div>
+            <div class="calendar-shell">
+              <div></div>
+              <div class="cal-header">A</div>
+              <div class="cal-header">B</div>
+              <div class="cal-header">C</div>
+              <div class="cal-header" style="color:#777;">08:00</div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell">
+                <div class="cal-block"></div>
+              </div>
+              <div class="cal-cell"></div>
+              <div class="cal-header" style="color:#777;">10:00</div>
+              <div class="cal-cell">
+                <div class="cal-block"></div>
+              </div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell"></div>
+              <div class="cal-header" style="color:#777;">13:00</div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell">
+                <div class="cal-block"></div>
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Mechaniker</label>
+            <select>
+              <option>A · HV (empf.)</option>
+              <option>B · Mechanik</option>
+              <option>C · Karosserie</option>
+            </select>
+            <label>Terminart</label>
+            <select>
+              <option>Fahrzeug bleibt da</option>
+              <option>Kunde wartet</option>
+              <option>Abschleppwagen</option>
+            </select>
+            <label>Kontakt Kunde</label>
+            <input placeholder="SMS / WhatsApp / E-Mail" />
+          </div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s3_prev">← Zurück</button>
+          <button class="btn-primary" data-next data-i18n="s3_next">Weiter: Preis →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="card" id="step-4" style="display:none">
+        <h2 data-i18n="s4_title">Preis · Zusammenfassung</h2>
+        <p data-i18n="s4_sub">Überprüfe Arbeitszeit, Teile und Gesamtkosten.</p>
+        <div class="two-col">
+          <div class="price-summary">
+            <div class="price-row"><span>Arbeit: Wartung + Diagnose</span><span>2,5 h</span></div>
+            <div class="price-row"><span>Arbeitslohn</span><span>€ 210,00</span></div>
+            <div class="price-row"><span>Teile</span><span>€ 145,00</span></div>
+            <div class="price-row"><span>Zusätzlich</span><span>€ 45,00</span></div>
+            <div class="price-row total"><span>Gesamt (inkl. MwSt.)</span><span>€ 400,00</span></div>
+          </div>
+          <div class="field-group">
+            <label>Kundenhinweise</label>
+            <textarea placeholder="Geschätzter Preis. Bei Abweichungen Kontaktaufnahme."></textarea>
+            <label>Status</label>
+            <select>
+              <option>Bereit zur Bestätigung</option>
+              <option>Intern</option>
+              <option>Vom Kunden bestätigt</option>
+            </select>
+          </div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s4_prev">← Zurück</button>
+          <button class="btn-primary" data-i18n="s4_submit">Auftrag erstellen ✓</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS externos -->
+  <script src="assets/js/wizard.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="de">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Beterano Lab – Werkstatt Wizard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="assets/styles/main.css" />
+</head>
+
+<body>
+
+  <!-- PANTALLA DE ELECCIÓN DE IDIOMA -->
+  <div class="lang-overlay" id="lang-overlay">
+    <div class="lang-card">
+      <div class="lang-title" data-i18n="lang_title">Sprache wählen</div>
+      <div class="lang-sub" data-i18n="lang_sub">
+        Bitte wähle deine Sprache · Please choose your language.
+      </div>
+      <div class="lang-grid">
+        <button class="lang-btn" data-lang="de">
+          <span>Deutsch</span><span class="lang-code">DE</span>
+        </button>
+        <button class="lang-btn" data-lang="en">
+          <span>English</span><span class="lang-code">EN</span>
+        </button>
+        <button class="lang-btn" data-lang="fr">
+          <span>Français</span><span class="lang-code">FR</span>
+        </button>
+        <button class="lang-btn" data-lang="it">
+          <span>Italiano</span><span class="lang-code">IT</span>
+        </button>
+        <button class="lang-btn" data-lang="es">
+          <span>Español</span><span class="lang-code">ES</span>
+        </button>
+      </div>
+      <div class="lang-sub" style="font-size:12px;" data-i18n="lang_saved">
+        Deine Auswahl wird für zukünftige Besuche gespeichert.
+      </div>
+    </div>
+  </div>
+
+  <div class="app">
+    <header>
+      <div class="brand">
+        <img src="assets/images/logo.png" />
+        <div class="brand-text">
+          <span>Garage Ocean Car</span>
+          <span>BETERANO LAB</span>
+        </div>
+      </div>
+
+      <!-- Derecha del header: pill + botón de cambio de idioma -->
+      <div style="display:flex; align-items:center; gap:8px;">
+        <div class="pill">
+          <span class="pill-dot"></span>
+          <span data-i18n="header_pill">Prototyp · Werkstatt-Wizard</span>
+        </div>
+
+        <!-- Botón para reabrir selección de idioma durante el wizard -->
+        <button class="btn-secondary" id="lang-toggle">
+          🌐 <span id="lang-current">DE</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="shell">
+      <div class="wizard-header">
+        <div class="wizard-title">
+          <div data-i18n="header_title">Neuer Werkstattauftrag</div>
+          <span data-i18n="header_flow">Start → Service → Fahrzeug → Termin → Preis</span>
+        </div>
+        <div class="steps">
+          <div class="step-chip active" data-step-chip="0">
+            <div class="index">1</div>
+            <span data-i18n="step1_label">Start</span>
+          </div>
+          <div class="step-chip" data-step-chip="1">
+            <div class="index">2</div>
+            <span data-i18n="step2_label">Service</span>
+          </div>
+          <div class="step-chip" data-step-chip="2">
+            <div class="index">3</div>
+            <span data-i18n="step3_label">Fahrzeug</span>
+          </div>
+          <div class="step-chip" data-step-chip="3">
+            <div class="index">4</div>
+            <span data-i18n="step4_label">Termin</span>
+          </div>
+          <div class="step-chip" data-step-chip="4">
+            <div class="index">5</div>
+            <span data-i18n="step5_label">Preis</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 0 -->
+      <div class="card" id="step-0">
+        <h2 data-i18n="s0_title">Start · Vorgang auswählen</h2>
+        <p data-i18n="s0_sub">Wähle, welchen Prozess du für den Kunden starten möchtest.</p>
+        <div class="grid">
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label" data-i18n="s0_tile1_title">Neuer Reparaturauftrag</div>
+            <div class="tile-hint" data-i18n="s0_tile1_hint">Standardannahme mit Planung & Kostenschätzung.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label" data-i18n="s0_tile2_title">Schneller Termin</div>
+            <div class="tile-hint" data-i18n="s0_tile2_hint">Nur einen Termin reservieren.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label" data-i18n="s0_tile3_title">Remote-Kostenvoranschlag</div>
+            <div class="tile-hint" data-i18n="s0_tile3_hint">Fotos hochladen, Angebot erhalten.</div>
+          </div>
+        </div>
+        <div class="footer">
+          <span class="hint" data-i18n="s0_hint">Schritt 1 von 5</span>
+          <button class="btn-primary" data-next data-i18n="s0_next">Weiter →</button>
+        </div>
+      </div>
+
+      <!-- STEP 1 -->
+      <div class="card" id="step-1" style="display:none">
+        <h2 data-i18n="s1_title">Service · Was wird benötigt?</h2>
+        <p data-i18n="s1_sub">Wähle passende Servicepakete aus.</p>
+        <div class="grid">
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Wartung / Inspektion</div>
+            <div class="tile-hint">Öl, Filter, Check.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Diagnose / Elektronik</div>
+            <div class="tile-hint">Fehlerauslese, HV, Software.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Mechanische Reparatur</div>
+            <div class="tile-hint">Bremsen, Motor, Fahrwerk.</div>
+          </div>
+          <div class="tile">
+            <div class="icon-placeholder"></div>
+            <div class="tile-label">Karosserie / Lack</div>
+            <div class="tile-hint">Dellen, Kratzer.</div>
+          </div>
+        </div>
+        <div class="chips-row">
+          <div class="chip accent" data-i18n="s1_chip_duration">Dauer: 2,5 h</div>
+          <div class="chip" data-i18n="s1_chip_mechanic">Empf.: Mechaniker A (HV)</div>
+          <div class="chip" data-i18n="s1_chip_priority">Priorität: normal</div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s1_prev">← Zurück</button>
+          <button class="btn-primary" data-next data-i18n="s1_next">Weiter: Fahrzeug →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2 -->
+      <div class="card" id="step-2" style="display:none">
+        <h2 data-i18n="s2_title">Fahrzeug · Basisdaten</h2>
+        <p data-i18n="s2_sub">Fahrzeuginfo eingeben oder bestätigen.</p>
+        <div class="two-col">
+          <div class="field-group">
+            <label>Kennzeichen</label><input placeholder="GI-OCEAN 123" />
+            <label>Marke / Modell</label><input placeholder="Volkswagen ID.4" />
+            <label>Bj. / VIN</label><input placeholder="WVWZZZ…" />
+            <label>Interne Notizen</label><textarea placeholder="Bremsgeräusche, HV-Check…"></textarea>
+          </div>
+          <div class="field-group">
+            <label>Fotos</label>
+            <div class="tile" style="height:160px;align-items:center;justify-content:center;text-align:center;">
+              <div class="icon-placeholder"></div>
+              <div class="tile-label">Fotos hier ablegen</div>
+            </div>
+            <label>Beterano Lab Historie</label>
+            <div class="tile">
+              <div class="tile-label">3 frühere Besuche</div>
+              <div class="tile-hint">Letzter: vor 8 Monaten.</div>
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s2_prev">← Zurück</button>
+          <button class="btn-primary" data-next data-i18n="s2_next">Weiter: Termin →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3 -->
+      <div class="card" id="step-3" style="display:none">
+        <h2 data-i18n="s3_title">Termin · Verfügbarkeit</h2>
+        <p data-i18n="s3_sub">Automatische Vorschläge basierend auf Dauer & Mechanikern.</p>
+        <div class="two-col">
+          <div>
+            <label data-i18n="s3_label_suggestions">Vorgeschlagene Zeiten</label>
+            <div class="chips-row" style="margin-bottom:10px;">
+              <div class="chip accent">Mo 15 Dez · 10:00–12:30</div>
+              <div class="chip">Di 16 Dez · 14:00–16:30</div>
+              <div class="chip">Weitere…</div>
+            </div>
+            <div class="calendar-shell">
+              <div></div>
+              <div class="cal-header">A</div>
+              <div class="cal-header">B</div>
+              <div class="cal-header">C</div>
+              <div class="cal-header" style="color:#777;">08:00</div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell">
+                <div class="cal-block"></div>
+              </div>
+              <div class="cal-cell"></div>
+              <div class="cal-header" style="color:#777;">10:00</div>
+              <div class="cal-cell">
+                <div class="cal-block"></div>
+              </div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell"></div>
+              <div class="cal-header" style="color:#777;">13:00</div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell"></div>
+              <div class="cal-cell">
+                <div class="cal-block"></div>
+              </div>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Mechaniker</label>
+            <select>
+              <option>A · HV (empf.)</option>
+              <option>B · Mechanik</option>
+              <option>C · Karosserie</option>
+            </select>
+            <label>Terminart</label>
+            <select>
+              <option>Fahrzeug bleibt da</option>
+              <option>Kunde wartet</option>
+              <option>Abschleppwagen</option>
+            </select>
+            <label>Kontakt Kunde</label>
+            <input placeholder="SMS / WhatsApp / E-Mail" />
+          </div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s3_prev">← Zurück</button>
+          <button class="btn-primary" data-next data-i18n="s3_next">Weiter: Preis →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4 -->
+      <div class="card" id="step-4" style="display:none">
+        <h2 data-i18n="s4_title">Preis · Zusammenfassung</h2>
+        <p data-i18n="s4_sub">Überprüfe Arbeitszeit, Teile und Gesamtkosten.</p>
+        <div class="two-col">
+          <div class="price-summary">
+            <div class="price-row"><span>Arbeit: Wartung + Diagnose</span><span>2,5 h</span></div>
+            <div class="price-row"><span>Arbeitslohn</span><span>€ 210,00</span></div>
+            <div class="price-row"><span>Teile</span><span>€ 145,00</span></div>
+            <div class="price-row"><span>Zusätzlich</span><span>€ 45,00</span></div>
+            <div class="price-row total"><span>Gesamt (inkl. MwSt.)</span><span>€ 400,00</span></div>
+          </div>
+          <div class="field-group">
+            <label>Kundenhinweise</label>
+            <textarea placeholder="Geschätzter Preis. Bei Abweichungen Kontaktaufnahme."></textarea>
+            <label>Status</label>
+            <select>
+              <option>Bereit zur Bestätigung</option>
+              <option>Intern</option>
+              <option>Vom Kunden bestätigt</option>
+            </select>
+          </div>
+        </div>
+        <div class="footer">
+          <button class="btn-secondary" data-prev data-i18n="s4_prev">← Zurück</button>
+          <button class="btn-primary" data-i18n="s4_submit">Auftrag erstellen ✓</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JS externos -->
+  <script src="assets/js/wizard.js"></script>
+  <script src="assets/js/i18n.js"></script>
+</body>
+
+</html>

@@ -1,2 +1,1 @@
-# kiosk
-# kiosk
+# lab-app-kiosk
