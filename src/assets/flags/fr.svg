@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="fr-clip">
+      <circle cx="12" cy="12" r="12"></circle>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#fr-clip)">
+    <rect width="8" height="24" x="0" fill="#0055a4"></rect>
+    <rect width="8" height="24" x="8" fill="#ffffff"></rect>
+    <rect width="8" height="24" x="16" fill="#ef4135"></rect>
+  </g>
+</svg>

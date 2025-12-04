@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <defs>
+    <clipPath id="en-clip">
+      <circle cx="12" cy="12" r="12"></circle>
+    </clipPath>
+  </defs>
+  <g clip-path="url(#en-clip)">
+    <rect width="24" height="24" fill="#00247d"></rect>
+    <!-- Cruz blanca -->
+    <rect x="10" width="4" height="24" fill="#ffffff"></rect>
+    <rect y="10" width="24" height="4" fill="#ffffff"></rect>
+    <!-- Cruz roja -->
+    <rect x="11" width="2" height="24" fill="#cf142b"></rect>
+    <rect y="11" width="24" height="2" fill="#cf142b"></rect>
+  </g>
+</svg>
